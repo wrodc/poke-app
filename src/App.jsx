@@ -1,9 +1,9 @@
-import Marco from "./components/Marco";
+import Pokemons from "./pages/Pokemons";
 
 function App() {
   return (
     <div>
-      <Marco />
+      <Pokemons />
     </div>
   );
 }
