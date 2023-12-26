@@ -8,10 +8,8 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
 
 const Pokemon = ({ info, handleDetail }) => {
-  // console.log("INFO:", info);
   return (
     <Card sx={{ minWidth: "150px", maxWidth: "180px", height: "400px", my: 1 }}>
       <CardHeader title={info.name} />

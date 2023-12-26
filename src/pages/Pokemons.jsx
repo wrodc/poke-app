@@ -1,4 +1,11 @@
-import { Box, Button, Container, Grid, Stack } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Stack,
+  CircularProgress,
+} from "@mui/material";
 import {
   useGetListQuery,
   useLazyGetPokemonQuery,
@@ -26,7 +33,6 @@ const Pokemons = () => {
   };
 
   const handleOpenDetail = (poke) => {
-    console.log("abriendo detail..., POKE:", poke);
     setInfopoke(poke);
     setOpen(true);
   };
@@ -70,7 +76,20 @@ const Pokemons = () => {
           </Stack>
         </Box>
         {error && <div>There was an error in transaction</div>}
-        {loading && <div>Loading...</div>}
+        {loading && (
+          <Box
+            sx={{
+              display: "flex",
+              width: "100%",
+              height: "100vh",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {" "}
+            <CircularProgress />
+          </Box>
+        )}
         {pokemons && !loading ? (
           <Box sx={{ m: 2 }}>
             <Grid
@@ -79,20 +98,21 @@ const Pokemons = () => {
               columns={{ xs: 8, md: 12 }}
             >
               {pokemons.map((pokemon) => (
-                <Grid item xs={4} md={3}>
+                <Grid item xs={4} md={3} key={pokemon.name}>
                   <Pokemon info={pokemon} handleDetail={handleOpenDetail} />
                 </Grid>
               ))}
             </Grid>
           </Box>
         ) : null}
+        {open && (
+          <PokemonDialog
+            handleClose={handleClose}
+            open={open}
+            data={infopoke}
+          />
+        )}
       </Container>
-      <Box>
-        <Button variant="outlined" onClick={handleOpen}>
-          Abrir
-        </Button>
-        <PokemonDialog handleClose={handleClose} open={open} data={infopoke} />
-      </Box>
     </>
   );
 };
